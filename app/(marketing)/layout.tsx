@@ -5,7 +5,7 @@ interface childrenProp {
 export default function MarketingLayout({ children }: childrenProp) {
   return (
     <div className="h-full bg-slate-100">
-      <main>{children}</main>
+      <main className="pt-40 pb-20 bg-slate-100">{children}</main>
     </div>
   );
 }
