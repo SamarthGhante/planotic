@@ -7,7 +7,7 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: "Planotic",
-  description: "Task Management App That Turns Chaos Into Productivity",
+  description: "Task Management App That Turns Chaos Into Clarity",
   icons: [{
     url: '/logo.svg',
     href: '/logo.svg'

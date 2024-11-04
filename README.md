@@ -1,3 +1,3 @@
 # Planotic | Task Management App
 
-### Turns Chaos Into Productivity!
+### Turns Chaos Into Clarity!
