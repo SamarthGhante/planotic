@@ -1,3 +1,5 @@
+import OrgControl from "./_components/org-control";
+
 interface childrenProp {
   children: React.ReactNode;
 }
@@ -5,7 +7,7 @@ interface childrenProp {
 export default function OrganizationIdLayout({ children }: childrenProp) {
   return (
     <>
-      {/* TODO: orgination auto change [org-control component] */}
+      <OrgControl />
       {children}
     </>
   );
