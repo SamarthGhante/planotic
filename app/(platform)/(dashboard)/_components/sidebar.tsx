@@ -8,6 +8,8 @@ import { useOrganization, useOrganizationList } from "@clerk/nextjs";
 import { Button } from "@/components/ui/button";
 import { Accordion } from "@/components/ui/accordion";
 
+import { NavItem, Organization } from "./nav-item";
+
 interface SidebarProps {
   storageKey?: string;
 }
@@ -48,7 +50,7 @@ export default function Sidebar({
 
   return (
     <>
-      <div className="font-medium text-xs flex items-center mb-1">
+      <div className="font-medium text-medium flex items-center mb-1">
         <span className="pl-4">Workspaces</span>
         <Button
           asChild
@@ -67,7 +69,16 @@ export default function Sidebar({
         defaultValue={defaultAccordionValue}
         className="space-y-2"
       >
-        {/* crete nav-items component and map here */}
+        {userMemberships.data &&
+          userMemberships.data.map(({ organization }) => (
+            <NavItem
+              key={organization.id}
+              isActive={activeOrganization?.id === organization.id}
+              isExpanded={expanded[organization.id]}
+              organization={organization as Organization}
+              onExpand={onExpand}
+            />
+          ))}
       </Accordion>
     </>
   );
