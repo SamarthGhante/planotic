@@ -53,8 +53,8 @@ export default function Sidebar({
     return (
       <>
         <div className="flex items-center justify-between mb-2">
-          <Skeleton className="h-10 w-[50%]" />
-          <Skeleton className="h-10 w-10" />
+          <Skeleton className="h-10 w-[50%] bg-gray-300" />
+          <Skeleton className="h-10 w-10 bg-gray-200" />
         </div>
         <div className="space-y-2">
           <NavItem.Skeleton />

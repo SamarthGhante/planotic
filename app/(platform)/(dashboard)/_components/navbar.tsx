@@ -3,6 +3,7 @@ import { ClerkLoading, OrganizationSwitcher, UserButton } from "@clerk/nextjs";
 
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default function Navbar() {
   return (
@@ -29,8 +30,9 @@ export default function Navbar() {
       </div>
       <div className="ml-auto flex items-center gap-x-2">
         <ClerkLoading>
-          <div className="flex items-center gap-x-4">
-            <Loader className="h-4 w-4 animate-spin" />
+          <div className="flex items-center gap-x-2">
+            <Skeleton className="h-8 w-32 bg-gray-300" />
+            <Skeleton className="h-8 w-8 rounded-full bg-gray-300" />
           </div>
         </ClerkLoading>
         <OrganizationSwitcher
