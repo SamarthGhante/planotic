@@ -4,7 +4,11 @@ import Image from "next/image";
 import { CreditCard } from "lucide-react";
 import { useOrganization } from "@clerk/nextjs";
 
-export default function Info() {
+interface infoProp {
+  isPro: boolean;
+}
+
+export default function Info({ isPro }: infoProp) {
   const { organization, isLoaded } = useOrganization();
 
   if (!isLoaded) {
@@ -25,7 +29,7 @@ export default function Info() {
         <p className="font-semibold text-xl">{organization?.name}</p>
         <div className="flex items-center text-xs text-muted-foreground">
           <CreditCard className="h-4 w-4 mr-1" />
-          <span>Free</span>
+          <span>{isPro ? "Pro" : "Free"}</span>
         </div>
       </div>
     </div>
