@@ -3,9 +3,9 @@ import { redirect } from "next/navigation";
 
 import { HelpCircle, User2 } from "lucide-react";
 
-import checkSubscription from "@/lib/subscription";
 import { Hint } from "@/components/hint";
-import FormPopover from "@/components/form/form-popover";
+import checkSubscription from "@/lib/subscription";
+import { FormPopover } from "@/components/form/form-popover";
 
 export default async function BoardList() {
   const { orgId } = auth();

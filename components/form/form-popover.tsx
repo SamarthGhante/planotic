@@ -13,12 +13,12 @@ interface FormPopoverProps {
   sideOffset?: number;
 }
 
-export default function FormPopover({
+export const FormPopover = ({
   children,
   side = "bottom",
   align,
   sideOffset = 0,
-}: FormPopoverProps) {
+}: FormPopoverProps) => {
   return (
     <Popover>
       <PopoverTrigger asChild>{children}</PopoverTrigger>
