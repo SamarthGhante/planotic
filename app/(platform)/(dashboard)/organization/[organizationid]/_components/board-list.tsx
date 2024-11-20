@@ -7,6 +7,8 @@ import { Hint } from "@/components/hint";
 import checkSubscription from "@/lib/subscription";
 import { FormPopover } from "@/components/form/form-popover";
 
+import { MAX_FREE_BOARDS } from "@/constants/board";
+
 export default async function BoardList() {
   const { orgId } = auth();
 
@@ -30,7 +32,7 @@ export default async function BoardList() {
           >
             <p className="text-sm">Create new board</p>
             <span className="text-xs">
-              {isPro ? "Unlimited" : `5 remaining`}
+              {isPro ? "Unlimited" : `${MAX_FREE_BOARDS} remaining`}
             </span>
             <Hint
               sideOffset={45}
