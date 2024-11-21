@@ -8,6 +8,7 @@ import {
 
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
+import { FormPicker } from "./form-picker";
 
 interface FormPopoverProps {
   children: React.ReactNode;
@@ -22,10 +23,16 @@ export const FormPopover = ({
   align,
   sideOffset = 0,
 }: FormPopoverProps) => {
-  const onSubmit = (formData: FormData) => {
+  const onSubmit = async (formData: FormData) => {
+
     const title = formData.get("title") as string;
+    const image = formData.get("image") as string;
+
+    await new Promise((resolve) => setTimeout(resolve, 2000));
+
     console.log({
       boardTitle: title,
+      BoardImage: image,
     });
   };
   return (
@@ -42,7 +49,13 @@ export const FormPopover = ({
         </div>
         <form action={onSubmit} className="space-y-4">
           <div className="space-y-4">
-            <FormInput id="title" label="Board title" type="text" />
+            <FormPicker id="image" />
+            <FormInput
+              id="title"
+              label="Board Name"
+              placeholder="Enter Board Name"
+              type="text"
+            />
           </div>
           <FormSubmit className="w-full">Create</FormSubmit>
         </form>
