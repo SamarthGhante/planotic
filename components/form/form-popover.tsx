@@ -1,10 +1,15 @@
 "use client";
 
+import { ElementRef, useRef } from "react";
+import { X } from "lucide-react";
+
 import {
   Popover,
+  PopoverClose,
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { Button } from "../ui/button";
 
 import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
@@ -23,8 +28,9 @@ export const FormPopover = ({
   align,
   sideOffset = 0,
 }: FormPopoverProps) => {
-  const onSubmit = async (formData: FormData) => {
+  const closeRef = useRef<ElementRef<"button">>(null);
 
+  const onSubmit = async (formData: FormData) => {
     const title = formData.get("title") as string;
     const image = formData.get("image") as string;
 
@@ -44,6 +50,14 @@ export const FormPopover = ({
         side={side}
         sideOffset={sideOffset}
       >
+        <PopoverClose ref={closeRef} asChild>
+          <Button
+            className="h-auto w-auto p-2 absolute top-2 right-2 text-neutral-600 focus-visible:ring-0 focus-visible:ring-transparent"
+            variant="ghost"
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </PopoverClose>
         <div className="text-sm font-medium text-center text-neutral-600 pb-4">
           Create board
         </div>
@@ -55,6 +69,7 @@ export const FormPopover = ({
               label="Board Name"
               placeholder="Enter Board Name"
               type="text"
+              className="focus-visible:ring-0 focus-visible:ring-transparent"
             />
           </div>
           <FormSubmit className="w-full">Create</FormSubmit>
