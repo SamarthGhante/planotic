@@ -4,6 +4,7 @@ import { useFormStatus } from "react-dom";
 
 import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 
 interface FormSubmitProps {
   children: React.ReactNode;
@@ -35,7 +36,7 @@ export const FormSubmit = ({
       size="sm"
       className={cn(className)}
     >
-      {children}
+      {pending ? <Loader2 className="h-4 w-4 animate-spin" /> : children}
     </Button>
   );
 };
