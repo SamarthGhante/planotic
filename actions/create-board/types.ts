@@ -1,0 +1,1 @@
+/* define types for create-board action */
