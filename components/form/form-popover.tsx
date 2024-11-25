@@ -2,6 +2,7 @@
 
 import { ElementRef, useRef } from "react";
 import { X } from "lucide-react";
+import { toast } from "sonner";
 
 import {
   Popover,
@@ -35,6 +36,7 @@ export const FormPopover = ({
     const image = formData.get("image") as string;
 
     await new Promise((resolve) => setTimeout(resolve, 2000));
+    toast.success("Board Created!");
 
     console.log({
       boardTitle: title,
