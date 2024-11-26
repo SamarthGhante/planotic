@@ -22,6 +22,9 @@ export default async function BoardList() {
     where: {
       orgId,
     },
+    orderBy: {
+      createdAt: "desc",
+    },
   });
 
   const isPro = checkSubscription();
