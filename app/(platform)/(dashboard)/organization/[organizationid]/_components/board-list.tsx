@@ -1,12 +1,14 @@
+import Link from "next/link";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-
 import { HelpCircle, User2 } from "lucide-react";
 
 import { Hint } from "@/components/hint";
-import checkSubscription from "@/lib/subscription";
 import { FormPopover } from "@/components/form/form-popover";
 
+import { db } from "@/lib/db";
+import { Board } from "@prisma/client";
+import checkSubscription from "@/lib/subscription";
 import { MAX_FREE_BOARDS } from "@/constants/board";
 
 export default async function BoardList() {
@@ -15,6 +17,12 @@ export default async function BoardList() {
   if (!orgId) {
     return redirect("/select-org");
   }
+
+  const boards = await db.board.findMany({
+    where: {
+      orgId,
+    },
+  });
 
   const isPro = checkSubscription();
 
@@ -25,6 +33,17 @@ export default async function BoardList() {
         Your boards
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        {boards.map((board: Board) => (
+          <Link
+            key={board.id}
+            href={`/board/${board.id}`}
+            className="group relative aspect-video bg-no-repeat bg-center bg-cover bg-sky-700 rounded-sm h-full w-full p-2 overflow-hidden"
+            style={{ backgroundImage: `url(${board.imageThumbUrl})` }}
+          >
+            <div className="absolute inset-0 bg-black/30 group-hover:bg-black/40 transition" />
+            <p className="relative font-semibold text-white">{board.title}</p>
+          </Link>
+        ))}
         <FormPopover side="right" sideOffset={10}>
           <div
             role="button"
