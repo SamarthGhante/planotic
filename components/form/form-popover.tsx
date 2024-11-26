@@ -16,6 +16,9 @@ import { FormInput } from "./form-input";
 import { FormSubmit } from "./form-submit";
 import { FormPicker } from "./form-picker";
 
+import { useAction } from "@/hooks/use-action";
+import { createBoard } from "@/actions/create-board";
+
 interface FormPopoverProps {
   children: React.ReactNode;
   side?: "left" | "right" | "top" | "bottom";
@@ -31,17 +34,22 @@ export const FormPopover = ({
 }: FormPopoverProps) => {
   const closeRef = useRef<ElementRef<"button">>(null);
 
-  const onSubmit = async (formData: FormData) => {
+  const { execute, fieldErrors } = useAction(createBoard, {
+    onSuccess: (data) => {
+      toast.success("Board created!");
+      closeRef.current?.click();
+      console.log(data);
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
+  const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
     const image = formData.get("image") as string;
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
-    toast.success("Board Created!");
-
-    console.log({
-      boardTitle: title,
-      BoardImage: image,
-    });
+    execute({ title, image });
   };
   return (
     <Popover>
@@ -65,13 +73,14 @@ export const FormPopover = ({
         </div>
         <form action={onSubmit} className="space-y-4">
           <div className="space-y-4">
-            <FormPicker id="image" />
+            <FormPicker id="image" errors={fieldErrors} />
             <FormInput
               id="title"
               label="Board Name"
               placeholder="Enter Board Name"
               type="text"
               className="focus-visible:ring-0 focus-visible:ring-transparent"
+              errors={fieldErrors}
             />
           </div>
           <FormSubmit className="w-full">Create</FormSubmit>
