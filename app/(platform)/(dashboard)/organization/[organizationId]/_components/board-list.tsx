@@ -74,15 +74,22 @@ export default async function BoardList() {
 
 BoardList.Skeleton = function SkeletonBoardList() {
   return (
-    <div className="grid gird-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
-      <Skeleton className="aspect-video h-full w-full" />
-      <Skeleton className="aspect-video h-full w-full" />
-      <Skeleton className="aspect-video h-full w-full" />
-      <Skeleton className="aspect-video h-full w-full" />
-      <Skeleton className="aspect-video h-full w-full" />
-      <Skeleton className="aspect-video h-full w-full" />
-      <Skeleton className="aspect-video h-full w-full" />
-      <Skeleton className="aspect-video h-full w-full" />
+    <div className="space-y-4">
+      <div className="flex items-center font-semibold text-lg text-neutral-700">
+        <Skeleton className="h-6 w-6 mr-2" />
+        <Skeleton className="h-6 w-20" />
+      </div>
+
+      <div className="grid gird-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+        <Skeleton className="aspect-video h-full w-full" />
+        <Skeleton className="aspect-video h-full w-full" />
+        <Skeleton className="aspect-video h-full w-full" />
+        <Skeleton className="aspect-video h-full w-full" />
+        <Skeleton className="aspect-video h-full w-full" />
+        <Skeleton className="aspect-video h-full w-full" />
+        <Skeleton className="aspect-video h-full w-full" />
+        <Skeleton className="aspect-video h-full w-full" />
+      </div>
     </div>
   );
 };
