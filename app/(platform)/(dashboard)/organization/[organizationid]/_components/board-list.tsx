@@ -4,6 +4,7 @@ import { redirect } from "next/navigation";
 import { HelpCircle, User2 } from "lucide-react";
 
 import { Hint } from "@/components/hint";
+import { Skeleton } from "@/components/ui/skeleton";
 import { FormPopover } from "@/components/form/form-popover";
 
 import { db } from "@/lib/db";
@@ -70,3 +71,18 @@ export default async function BoardList() {
     </div>
   );
 }
+
+BoardList.Skeleton = function SkeletonBoardList() {
+  return (
+    <div className="grid gird-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+      <Skeleton className="aspect-video h-full w-full" />
+      <Skeleton className="aspect-video h-full w-full" />
+      <Skeleton className="aspect-video h-full w-full" />
+      <Skeleton className="aspect-video h-full w-full" />
+      <Skeleton className="aspect-video h-full w-full" />
+      <Skeleton className="aspect-video h-full w-full" />
+      <Skeleton className="aspect-video h-full w-full" />
+      <Skeleton className="aspect-video h-full w-full" />
+    </div>
+  );
+};
