@@ -1,17 +1,31 @@
 "use client";
 
 import { toast } from "sonner";
-import { ElementRef, useRef, useState } from "react";
 import { Board } from "@prisma/client";
+import { ElementRef, useRef, useState } from "react";
 
+import { updateBoard } from "@/actions/update-board";
+
+import { useAction } from "@/hooks/use-action";
 import { Button } from "@/components/ui/button";
 import { FormInput } from "@/components/form/form-input";
 
-interface BoardTitleFormProps {
+interface boardTitleFormProps {
   data: Board;
 }
 
-export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
+export const BoardTitleForm = ({ data }: boardTitleFormProps) => {
+  const { execute } = useAction(updateBoard, {
+    onSuccess: (data) => {
+      toast.success(`Board "${data.title}" updated!`);
+      setTitle(data.title);
+      disableEditing();
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
   const formRef = useRef<ElementRef<"form">>(null);
   const inputRef = useRef<ElementRef<"input">>(null);
 
@@ -32,12 +46,11 @@ export const BoardTitleForm = ({ data }: BoardTitleFormProps) => {
 
   const onSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
-    disableEditing();
-    setTitle(title);
-    console.log({
-      newTitle: title,
+
+    execute({
+      title,
+      id: data.id,
     });
-    toast.success("Board Title Updated");
   };
 
   const onBlur = () => {
