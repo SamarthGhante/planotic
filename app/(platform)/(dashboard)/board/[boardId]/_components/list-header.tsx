@@ -13,10 +13,9 @@ import { FormInput } from "@/components/form/form-input";
 
 interface listHeaderProps {
   data: List;
-  onAddCard: () => void;
 }
 
-export const ListHeader = ({ data, onAddCard }: listHeaderProps) => {
+export const ListHeader = ({ data }: listHeaderProps) => {
   const [title, setTitle] = useState(data.title);
   const [isEditing, setIsEditing] = useState(false);
 
