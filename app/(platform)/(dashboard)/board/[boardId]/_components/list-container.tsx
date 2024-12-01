@@ -1,17 +1,29 @@
 "use client";
 
-import { ListWithCards } from "@/types";
+import { useState, useEffect } from "react";
 
 import { ListForm } from "./list-form";
+import { ListWithCards } from "@/types";
 
-interface ListContainerProps {
+import { ListItem } from "./list-item";
+
+interface listContainerProps {
   data: ListWithCards[];
   boardId: string;
 }
 
-export const ListContainer = ({ data, boardId }: ListContainerProps) => {
+export const ListContainer = ({ data, boardId }: listContainerProps) => {
+  const [orderedData, setOrderedData] = useState(data);
+
+  useEffect(() => {
+    setOrderedData(data);
+  }, [data]);
+
   return (
-    <ol>
+    <ol className="flex gap-x-3 h-full">
+      {orderedData.map((list) => {
+        return <ListItem key={list.id} data={list} />;
+      })}
       <ListForm />
       <div className="flex-shrink-0 w-1" />
     </ol>
