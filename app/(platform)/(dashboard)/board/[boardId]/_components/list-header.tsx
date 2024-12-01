@@ -6,13 +6,17 @@ import { useEventListener } from "usehooks-ts";
 
 import { useState, useRef, ElementRef } from "react";
 
+import { useAction } from "@/hooks/use-action";
+import { updateList } from "@/actions/update-list";
+
 import { FormInput } from "@/components/form/form-input";
 
 interface listHeaderProps {
   data: List;
+  onAddCard: () => void;
 }
 
-export const ListHeader = ({ data }: listHeaderProps) => {
+export const ListHeader = ({ data, onAddCard }: listHeaderProps) => {
   const [title, setTitle] = useState(data.title);
   const [isEditing, setIsEditing] = useState(false);
 
@@ -31,18 +35,31 @@ export const ListHeader = ({ data }: listHeaderProps) => {
     setIsEditing(false);
   };
 
+  const { execute } = useAction(updateList, {
+    onSuccess: (data) => {
+      toast.success(`Renamed to "${data.title}"`);
+      setTitle(data.title);
+      disableEditing();
+    },
+    onError: (error) => {
+      toast.error(error);
+    },
+  });
+
   const handleSubmit = (formData: FormData) => {
     const title = formData.get("title") as string;
     const id = formData.get("id") as string;
     const boardId = formData.get("boardId") as string;
 
-    console.log({
+    if (title === data.title) {
+      return disableEditing();
+    }
+
+    execute({
       title,
       id,
       boardId,
     });
-    disableEditing();
-    toast.success("Done");
   };
 
   const onBlur = () => {
