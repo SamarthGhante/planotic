@@ -9,12 +9,13 @@ import { Textarea } from "@/components/ui/textarea";
 
 import { FormErrors } from "./form-errors";
 
-interface FormTextareaProps {
+interface formTextareaProps {
   id: string;
   label?: string;
   placeholder?: string;
   required?: boolean;
   disabled?: boolean;
+  errors?: Record<string, string[] | undefined>;
   className?: string;
   onBlur?: () => void;
   onClick?: () => void;
@@ -22,7 +23,7 @@ interface FormTextareaProps {
   defaultValue?: string;
 }
 
-export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
+export const FormTextarea = forwardRef<HTMLTextAreaElement, formTextareaProps>(
   (
     {
       id,
@@ -30,6 +31,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
       placeholder,
       required,
       disabled,
+      errors,
       onBlur,
       onClick,
       onKeyDown,
@@ -69,7 +71,7 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
             defaultValue={defaultValue}
           />
         </div>
-        <FormErrors id={id} />
+        <FormErrors id={id} errors={errors} />
       </div>
     );
   }

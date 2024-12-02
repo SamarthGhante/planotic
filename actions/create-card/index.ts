@@ -52,11 +52,10 @@ const handler = async (data: InputType): Promise<ReturnType> => {
         order: newOrder,
       },
     });
-
   } catch (error) {
     return {
-      error: "Failed to create."
-    }
+      error: "Failed to create.",
+    };
   }
 
   revalidatePath(`/board/${boardId}`);

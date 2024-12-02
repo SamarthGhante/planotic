@@ -2,25 +2,38 @@
 
 import { toast } from "sonner";
 import { Plus, X } from "lucide-react";
-import { useParams } from "next/navigation";
 import { useOnClickOutside, useEventListener } from "usehooks-ts";
 import { forwardRef, useRef, ElementRef, KeyboardEventHandler } from "react";
+
+import { useAction } from "@/hooks/use-action";
+import { createCard } from "@/actions/create-card";
 
 import { Button } from "@/components/ui/button";
 import { FormSubmit } from "@/components/form/form-submit";
 import { FormTextarea } from "@/components/form/form-textarea";
 
-interface CardFormProps {
+interface cardFormProps {
   listId: string;
+  boardId: string;
   enableEditing: () => void;
   disableEditing: () => void;
   isEditing: boolean;
 }
 
-export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
-  ({ listId, enableEditing, disableEditing, isEditing }, ref) => {
-    const params = useParams();
+export const CardForm = forwardRef<HTMLTextAreaElement, cardFormProps>(
+  ({ listId, boardId, enableEditing, disableEditing, isEditing }, ref) => {
     const formRef = useRef<ElementRef<"form">>(null);
+
+    const { execute, fieldErrors } = useAction(createCard, {
+      onSuccess: (data) => {
+        toast.success(`Card "${data.title}" created`);
+        formRef.current?.reset();
+        disableEditing(); // Remove If Want To Keep Showing Add Card Form
+      },
+      onError: (error) => {
+        toast.error(error);
+      },
+    });
 
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") {
@@ -43,16 +56,9 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
     const onSubmit = (formData: FormData) => {
       const title = formData.get("title") as string;
       const listId = formData.get("listId") as string;
-      const boardId = params.boardId as string;
+      const boardId = formData.get("boardId") as string;
 
-      disableEditing();
-      toast.success("Done");
-
-      console.log({
-        title,
-        listId,
-        boardId,
-      });
+      execute({ title, listId, boardId });
     };
 
     if (isEditing) {
@@ -67,8 +73,10 @@ export const CardForm = forwardRef<HTMLTextAreaElement, CardFormProps>(
             onKeyDown={onTextareakeyDown}
             ref={ref}
             placeholder="Enter a title for this card..."
+            errors={fieldErrors}
           />
           <input hidden id="listId" name="listId" value={listId} />
+          <input hidden id="boardId" name="boardId" value={boardId} />
           <div className="flex items-center gap-x-1">
             <FormSubmit>Add card</FormSubmit>
             <Button onClick={disableEditing} size="sm" variant="ghost">

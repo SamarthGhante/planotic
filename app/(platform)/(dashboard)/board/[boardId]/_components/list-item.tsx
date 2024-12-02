@@ -29,6 +29,7 @@ export const ListItem = ({ data }: listItemProps) => {
         <ListHeader data={data} />
         <CardForm
           listId={data.id}
+          boardId={data.boardId}
           ref={textareaRef}
           isEditing={isEditing}
           enableEditing={enableEditing}
