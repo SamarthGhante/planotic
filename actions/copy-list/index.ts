@@ -57,7 +57,7 @@ const handler = async (data: InputType): Promise<ReturnType> => {
             data: listToCopy.cards.map((card) => ({
               title: card.title,
               description: card.description,
-              order: card.order,
+              position: card.position,
             })),
           },
         },

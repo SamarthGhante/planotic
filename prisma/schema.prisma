@@ -49,7 +49,7 @@ model List {
 model Card {
   id          String @id @default(uuid())
   title       String
-  order       Int
+  position       Int
   description String? @db.Text
 
   listId      String

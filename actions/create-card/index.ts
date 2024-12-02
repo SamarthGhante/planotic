@@ -39,17 +39,17 @@ const handler = async (data: InputType): Promise<ReturnType> => {
 
     const lastCard = await db.card.findFirst({
       where: { listId },
-      orderBy: { order: "desc" },
-      select: { order: true },
+      orderBy: { position: "desc" },
+      select: { position: true },
     });
 
-    const newOrder = lastCard ? lastCard.order + 1 : 1;
+    const newOrder = lastCard ? lastCard.position + 1 : 1;
 
     card = await db.card.create({
       data: {
         title,
         listId,
-        order: newOrder,
+        position: newOrder,
       },
     });
   } catch (error) {
