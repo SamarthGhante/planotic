@@ -31,9 +31,10 @@ import { deleteList } from "@/actions/delete-list";
 
 interface listOptionsProps {
   data: List;
+  onAddCard: () => void;
 }
 
-export const ListOptions = ({ data }: listOptionsProps) => {
+export const ListOptions = ({ data, onAddCard }: listOptionsProps) => {
   const closeRef = useRef<ElementRef<"button">>(null);
 
   const { execute: executeDelete } = useAction(deleteList, {
@@ -69,8 +70,6 @@ export const ListOptions = ({ data }: listOptionsProps) => {
 
     executeCopy({ id, boardId });
   };
-
-  const onAddCard = () => {};
 
   return (
     <Popover>
