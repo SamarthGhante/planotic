@@ -7,8 +7,9 @@ import { fetcher } from "@/lib/fetcher";
 import { useCardModal } from "@/hooks/use-card-modal";
 
 import { Header } from "./header";
-import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Actions } from "./actions";
 import { Description } from "./description";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 export const CardModal = () => {
   const id = useCardModal((state) => state.id);
@@ -34,6 +35,7 @@ export const CardModal = () => {
               )}
             </div>
           </div>
+          {!cardData ? <Actions.Skeleton /> : <Actions data={cardData} />}
         </div>
       </DialogContent>
     </Dialog>
