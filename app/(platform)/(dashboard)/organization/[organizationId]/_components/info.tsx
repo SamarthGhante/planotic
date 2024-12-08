@@ -5,11 +5,7 @@ import { CreditCard } from "lucide-react";
 import { useOrganization } from "@clerk/nextjs";
 import { Skeleton } from "@/components/ui/skeleton";
 
-interface infoProp {
-  isPro: boolean;
-}
-
-export default function Info({ isPro }: infoProp) {
+export const Info = () => {
   const { organization, isLoaded } = useOrganization();
 
   if (!isLoaded) {
@@ -30,12 +26,12 @@ export default function Info({ isPro }: infoProp) {
         <p className="font-semibold text-xl">{organization?.name}</p>
         <div className="flex items-center text-xs text-muted-foreground">
           <CreditCard className="h-4 w-4 mr-1" />
-          <span>{isPro ? "Pro" : "Free"}</span>
+          <span>Free</span>
         </div>
       </div>
     </div>
   );
-}
+};
 
 Info.Skeleton = function SkeletonInfo() {
   return (

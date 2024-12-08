@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { auth } from "@clerk/nextjs";
 import { redirect } from "next/navigation";
-import { HelpCircle, User2 } from "lucide-react";
+import { HelpCircle, Plus, SquarePlus, User2 } from "lucide-react";
 
 import { Hint } from "@/components/hint";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -9,8 +9,6 @@ import { FormPopover } from "@/components/form/form-popover";
 
 import { db } from "@/lib/db";
 import { Board } from "@prisma/client";
-import checkSubscription from "@/lib/subscription";
-import { MAX_FREE_BOARDS } from "@/constants/board";
 
 export default async function BoardList() {
   const { orgId } = auth();
@@ -27,8 +25,6 @@ export default async function BoardList() {
       createdAt: "desc",
     },
   });
-
-  const isPro = checkSubscription();
 
   return (
     <div className="space-y-4">
@@ -51,16 +47,14 @@ export default async function BoardList() {
         <FormPopover side="right" sideOffset={10}>
           <div
             role="button"
-            className="aspect-video relative h-full w-full bg-muted rounded-sm flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition"
+            className="aspect-video relative h-full w-full border border-neutral-400 bg-muted rounded-sm flex flex-col gap-y-1 items-center justify-center hover:opacity-75 transition"
           >
-            <p className="text-sm">Create new board</p>
-            <span className="text-xs">
-              {isPro ? "Unlimited" : `${MAX_FREE_BOARDS} remaining`}
-            </span>
+            <SquarePlus />
+            <p className="text-sm">Create New Board</p>
             <Hint
               sideOffset={45}
               description={`
-                Free accounts are limited to 5 open boards. To create unlimited boards, please upgrade your workspace.
+                Boards are workspaces where you organize and track information, tasks, or projects using lists and cards!
               `}
             >
               <HelpCircle className="absolute bottom-2 right-2 h-[14px] w-[14px]" />

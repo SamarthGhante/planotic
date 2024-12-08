@@ -1,3 +1,3 @@
-export default function checkSubscription() {
+export const checkSubscription = () => {
   return false;
-}
+};
